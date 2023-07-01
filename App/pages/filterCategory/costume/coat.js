@@ -7,12 +7,12 @@ import axios from "axios";
 const CoatCostume = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
-    const [coatType, setCoatType] = useState(coatType || 'coat type');
-    const [coatColor, setCoatColor] = useState(coatColor || 'color');
-    const [coatLength, setCoatLength] = useState(coatLength || 'coat length');
-    const [collarType, setCollarType] = useState(collarType || 'collar type');
-    const [sleeveLength, setSleeveLength] = useState(sleeveLength || 'sleeve length');
+    const [designStyle, setDesignStyle] = useState( 'design style');
+    const [coatType, setCoatType] = useState( 'coat type');
+    const [coatColor, setCoatColor] = useState(  'color');
+    const [coatLength, setCoatLength] = useState(  'coat length');
+    const [collarType, setCollarType] = useState( 'collar type');
+    const [sleeveLength, setSleeveLength] = useState(  'sleeve length');
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create costume Coat based on this information:- make sure image style will be ${designStyle}, coat type:${coatType}, coat color:${coatColor},coat length:${coatLength}$,coat collar type:${collarType} and sleeves will be ${sleeveLength} and Remember to infuse the avatar with vitality and energy`
@@ -213,13 +213,14 @@ const CoatCostume = () => {
                 />
 
                 <div style={{
-                    // textAlign: "center" 
-                    // , width: "100%" 
+                    textAlign: "center"
                 }}>
-                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                        //  width: "100%", 
-                        fontSize: "20px"
-                    }} >Submit</Button>
+                    <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                        width: "90%",
+                        fontSize: "18px",
+                        border: "none",
+
+                    }} >Submit</button>
                 </div>
 
             </div>

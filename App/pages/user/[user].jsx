@@ -9,9 +9,7 @@ import "tippy.js/dist/tippy.css"; // optional
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Head from "next/head";
 import Meta from "../../components/Meta";
-import { SupercoolAuthContext } from "../../context/supercoolContext";
-import localforage from 'localforage'
-
+import { SupercoolAuthContext } from "../../context/supercoolContext"; 
 
 const User = () => {
 
@@ -28,33 +26,28 @@ const User = () => {
   const [data, setData] = useState([]);
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { allNfts, getProfileData } = superCoolContext;
-
-  localforage.getItem('address').then((value) => {
-    setWalletAddress(value)
-  })
+ 
 
   useEffect(() => {
     ProfileData();
     if (allNfts.length > 0) {
-      localforage.getItem('address').then(async (value) => {
-        setAddress(value);
-        getUserData(value);
-      }
-      )
+      const add = localStorage.getItem('address')
+        setAddress(add);
+        getUserData(add);
+      
     }
   }, [])
   const ProfileData = async () => {
+const add = localStorage.getItem('address')
+console.log('address for user data',add);
+      setWalletAddress(add)
 
-    localforage.getItem('address').then(async (value) => {
-      setWalletAddress(value)
-
-      const response = await getProfileData(value);
+      const response = await getProfileData(add);
       console.log('response--', response);
       setUsername(response.data.username)
       setBio(response.data.bio)
       setCoverePhoto(response.data.coverimage);
       setProfilePhoto(response.data.profilephoto)
-    })
 
   }
 

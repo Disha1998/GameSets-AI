@@ -7,10 +7,10 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const PantCostume = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
-    const [pantType, setPantType] = useState(pantType || 'pant type');
-    const [pantLength, setPantLength] = useState(pantLength || 'pant length');
-    const [pocketStyle, setPocketStyle] = useState(pocketStyle || 'pocket style');
+    const [designStyle, setDesignStyle] = useState(  'design style');
+    const [pantType, setPantType] = useState( 'pant type');
+    const [pantLength, setPantLength] = useState(  'pant length');
+    const [pocketStyle, setPocketStyle] = useState( 'pocket style');
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create costume Pant based on this information:- make sure image style will be ${designStyle}, pant type:${pantType}, pant length shuold be:${pantLength}, pant's pockets should be ${pocketStyle} and Remember to infuse the avatar with vitality and energy`
@@ -144,15 +144,16 @@ const PantCostume = () => {
             />
 
             <div style={{
-                // textAlign: "center" 
-                // , width: "100%" 
+                textAlign: "center"
             }}>
-                <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                    //  width: "100%", 
-                    fontSize: "20px"
-                }} >Submit</Button>
+                <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                    width: "90%",
+                    fontSize: "18px",
+                    border: "none",
+
+                }} >Submit</button>
             </div>
-           
+
         </>
     )
 }

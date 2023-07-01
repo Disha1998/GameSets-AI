@@ -5,16 +5,25 @@ import { SupercoolAuthContext } from "../../context/supercoolContext";
 import { useRouter } from 'next/router';
 import { ethers } from "ethers";
 import { CircularProgress } from "@mui/material";
+import { SUPER_COOL_NFT_CONTRACT, abi } from "../../constant/constant";
 
 const BidsModal = () => {
   const { bidsModal } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { allNfts, contract } = superCoolContext;
+  const { allNfts} = superCoolContext;
   const [buyLoading, setBuyLoading] = useState(false);
 
   const purchaseNft = async (_tokenId, _price) => {
     setBuyLoading(true);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    const contract = new ethers.Contract(
+      SUPER_COOL_NFT_CONTRACT,
+      abi,
+      signer
+    );
     try {
       const tx = await contract.buyToken(_tokenId, { value: ethers.utils.parseUnits(_price.toString(), "ether") });
       await tx.wait();
@@ -89,7 +98,7 @@ const BidsModal = () => {
                         />
 
                         <div className="bg-jacarta-50 border-jacarta-100 flex flex-1 justify-end self-stretch border-l dark:text-jacarta-700">
-                          <span className="self-center px-2 text-sm">${item.maticToUSD.toFixed(3)}</span>
+                          <span className="self-center px-2 text-sm">${item.maticToUSD}</span>
                         </div>
                       </div>
 

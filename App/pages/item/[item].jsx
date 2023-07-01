@@ -21,7 +21,7 @@ const Item = () => {
 	const [currentPriceUSD, setCurrentPriceUSD] = useState();
 	const [maticToUSD, setMaticToUSD] = useState();
 	const superCoolContext = React.useContext(SupercoolAuthContext);
-	const { allNfts, contract } = superCoolContext;
+	const { allNfts } = superCoolContext;
 
 
 	return (

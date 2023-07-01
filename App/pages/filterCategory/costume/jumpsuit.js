@@ -7,10 +7,10 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const JumpsuitCostume = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
-    const [jumpsuitType, setJumpsuitType] = useState(jumpsuitType || 'jumpsuit type');
-    const [closure, setClosure] = useState(closure || 'closure');
-    const [jumpsuitColor, setjumpsuitColor] = useState(jumpsuitColor || 'color');
+    const [designStyle, setDesignStyle] = useState(  'design style');
+    const [jumpsuitType, setJumpsuitType] = useState(  'jumpsuit type');
+    const [closure, setClosure] = useState( 'closure');
+    const [jumpsuitColor, setjumpsuitColor] = useState( 'color');
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create costume Jumpsuit based on this information:- make sure image style will be ${designStyle}, jumpsuit type:${jumpsuitType}, jumpsuit color:${jumpsuitColor} and there should be ${closure} closure to the jumpsuit and Remember to infuse the avatar with vitality and energy`
@@ -151,13 +151,14 @@ const JumpsuitCostume = () => {
                 setState={setClosure}
             />
             <div style={{
-                // textAlign: "center" 
-                // , width: "100%" 
+                textAlign: "center"
             }}>
-                <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                    //  width: "100%", 
-                    fontSize: "20px"
-                }} >Submit</Button>
+                <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                    width: "90%",
+                    fontSize: "18px",
+                    border: "none",
+
+                }} >Submit</button>
             </div>
         </>
     )

@@ -4,7 +4,7 @@ import "tippy.js/dist/tippy.css";
 import Likes from "../likes";
 const likes = 54;
 const CategoryItem = ({ data }) => {
-
+// console.log('data in last mile',data);
   return (
     <div className="grid grid-cols-1 gap-[1.875rem] md:grid-cols-2 lg:grid-cols-4">
       {data && data.map((item) => {
@@ -23,7 +23,6 @@ const CategoryItem = ({ data }) => {
                   />
                 </Link>
                 </a>
-                <Likes like={likes} />
 
               </figure>
               <div className="mt-3 flex items-center justify-between">
@@ -44,7 +43,7 @@ const CategoryItem = ({ data }) => {
                 </span>
                 <span className="dark:text-jacarta-300 text-jacarta-500">
                   {/* 1/1 */}
-                  ~ ${item.maticToUSD.toFixed(3)}
+                  ~ ${item.maticToUSD}
                 </span>
               </div>
 

@@ -7,8 +7,8 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const WeaponFeatures = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [weaponType, setWeaponType] = useState(weaponType || 'weapon type');
-    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
+    const [weaponType, setWeaponType] = useState( 'weapon type');
+    const [designStyle, setDesignStyle] = useState( 'design style');
 
 
 
@@ -110,13 +110,14 @@ const WeaponFeatures = () => {
             />
 
             <div style={{
-                // textAlign: "center" 
-                // , width: "100%" 
+                textAlign: "center"
             }}>
-                <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                    //  width: "100%", 
-                    fontSize: "20px"
-                }} >Submit</Button>
+                <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                    width: "90%",
+                    fontSize: "18px",
+                    border: "none",
+
+                }} >Submit</button>
             </div>
         </>
     )

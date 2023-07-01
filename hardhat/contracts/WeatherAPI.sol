@@ -12,7 +12,7 @@ contract WeatherAPI is ChainlinkClient, ConfirmedOwner {
     event RequestMultipleFulfilled(bytes32 indexed requestId, uint256 temp);
 
     constructor() ConfirmedOwner(msg.sender) {
-        setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
+        setChainlinkToken(0xfaFedb041c0DD4fA2Dc0d87a6B0979Ee6FA7af5F);
         setChainlinkOracle(0x2BDf4aB4DBb0d0e557D8E843B087BE227E2C7F5F);
         jobId = "a2b64cc3d87b4c8e8ce0f57d8b1db3f0";
         fee = (1 * LINK_DIVISIBILITY) / 10; // 0,1 * 10**18 (Varies by network and job)

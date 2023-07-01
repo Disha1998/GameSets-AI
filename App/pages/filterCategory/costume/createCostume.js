@@ -11,7 +11,7 @@ import JumpsuitCostume from "./jumpsuit";
 
 const CreateCostume = () => {
 
-    const [costumeType, setCostumeType] = useState(costumeType || 'costume type');
+    const [costumeType, setCostumeType] = useState('costume type');
 
 
     // let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create a profile avatar based on this information:- make sure image style will be ${imageStyle}, gender:${gender}, hair style:${hairstyle},hair color:${hairColor}${gender == "Male" ? `,facial hair:${facialHair}` : ""},facial Expression:${facialExpression},eye color:${eyeColor},skin tone:${skinTone},clothing style:${clothingStyle},accessories:${accessories},body type:${bodyType},age:${age},ethnicity:${ethnicity}, Remember to infuse the avatar with vitality and energy`

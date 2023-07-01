@@ -7,8 +7,7 @@ import Head from 'next/head';
 import Meta from '../../components/Meta';
 import { ethers, Signer } from 'ethers';
 import { SupercoolAuthContext } from '../../context/supercoolContext';
-import axios from 'axios';
-import localforage from 'localforage'
+import axios from 'axios'; 
 
 import { abi, SUPER_COOL_NFT_CONTRACT } from '../../constant/constant';
 const Edit_user = () => {
@@ -21,9 +20,7 @@ const Edit_user = () => {
 	const [profilePhoto, setProfilePhoto] = useState();
 	// Profile data
 
-	localforage.getItem('address').then((value) => {
-		setWalletAddress(value)
-	})
+	
 	const Profiledata = {
 		username: username,
 		bio: bio,
@@ -33,25 +30,16 @@ const Edit_user = () => {
 	}
 
 	useEffect(() => {
+		if (typeof window !== 'undefined') {
+				setWalletAddress(localStorage.getItem('address'))
+		  } 
 		if (walletAddress !== undefined) {
 			editProfileData();
 		}
+
 	}, [walletAddress])
 
-	let provider;
-	let signer;
-	if (typeof window !== "undefined") {
-		provider = new ethers.providers.Web3Provider(window.ethereum);
-		signer = provider.getSigner();
-	}
-
-	const contract = new ethers.Contract(
-		SUPER_COOL_NFT_CONTRACT,
-		abi,
-		signer
-	);
-	console.log('Profiledata=', Profiledata);
-
+	 
 	const UsernameEvent = (e) => {
 		setUsername(e.target.value)
 	}
@@ -71,18 +59,24 @@ const Edit_user = () => {
 
 	const editProfileData = async () => {
 
-		localforage.getItem('address').then(async (value) => {
-			setWalletAddress(value)
-			const response = await getProfileData(value);
+			setWalletAddress(localStorage.getItem('address'))
+			const response = await getProfileData(localStorage.getItem('address'));
 			console.log(response);
 			setUsername(response.data.username)
 			setBio(response.data.bio)
 			setCoverePhoto(response.data.coverimage);
 			setProfilePhoto(response.data.profilephoto)
-		})
 	}
 
 	const updateProfile = async () => {
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+       const signer = provider.getSigner();
+
+	const contract = new ethers.Contract(
+		SUPER_COOL_NFT_CONTRACT,
+		abi,
+		signer
+	);
 		console.log(Profiledata);
 		let url = await uploadDatainIpfs(Profiledata);
 		console.log('metadataurl==', url);
