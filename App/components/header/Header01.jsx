@@ -194,8 +194,8 @@ export default function Header01() {
 
           <Link className="shrink-0" href="/">
             <p className="text-jacarta-700 font-bold font-display mb-6 text-center text-2xl dark:text-white md:text-left lg:text-2xl xl:text-2xl animate-gradient">
-              {/* Buy, sell and collect NFTs. */}
-              Supercool
+
+              GameSets-AI
             </p>
           </Link>
 
@@ -297,11 +297,13 @@ export default function Header01() {
                       Balance
                     </span>
                     <div className="flex items-center">
-                      <svg className="icon icon-ETH -ml-1 mr-1 h-[1.125rem] w-[1.125rem]">
-                        <use xlinkHref="/icons.svg#icon-ETH" />
-                      </svg>
+                      <img
+                        className="icon icon-ETH -ml-1 mr-1 h-[1.125rem] w-[1.125rem]"
+                        src="/images/fantom.png"
+                      />
+                     
                       <span className="text-green text-lg font-bold">
-                        10 ETH
+                        10 FTM
                       </span>
                     </div>
                   </div>

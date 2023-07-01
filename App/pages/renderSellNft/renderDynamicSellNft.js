@@ -7,7 +7,7 @@ const RenderDynamicsellNft = ({ StoreDyanamicNftsMetadata, rendersellNFT, render
     const blockChainOptionsText = [
         {
             id: 1,
-            text: 'Ethereum',
+            text: 'Fantom',
         },
         {
             id: 2,

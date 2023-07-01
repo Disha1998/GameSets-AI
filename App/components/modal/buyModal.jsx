@@ -86,12 +86,16 @@ const BuyModal = () => {
                 <div className="ml-auto">
                   <span className="mb-1 flex items-center whitespace-nowrap">
                     <span data-tippy-content="ETH">
-                      <svg className="h-4 w-4">
-                        <use xlinkHref="/icons.svg#icon-ETH"></use>
-                      </svg>
+                      <img
+                        src="/images/fantom.png"
+                        className="h-4 w-4"
+                      />
+                      {/* <svg className="h-4 w-4">
+                      <use xlinkHref="/icons.svg#icon-ETH"></use>
+                    </svg> */}
                     </span>
                     <span className="dark:text-jacarta-100 text-sm font-medium tracking-tight">
-                      1.55 ETH
+                      1.55 FTM
                     </span>
                   </span>
                   <div className="dark:text-jacarta-300 text-right text-sm">
@@ -108,12 +112,16 @@ const BuyModal = () => {
                 <div className="ml-auto">
                   <span className="flex items-center whitespace-nowrap">
                     <span data-tippy-content="ETH">
-                      <svg className="h-4 w-4">
-                        <use xlinkHref="/icons.svg#icon-ETH"></use>
-                      </svg>
+                      <img
+                        src="/images/fantom.png"
+                        className="h-4 w-4"
+                      />
+                      {/* <svg className="h-4 w-4">
+                      <use xlinkHref="/icons.svg#icon-ETH"></use>
+                    </svg> */}
                     </span>
                     <span className="text-green font-medium tracking-tight">
-                      1.55 ETH
+                      1.55 FTM
                     </span>
                   </span>
                   <div className="dark:text-jacarta-300 text-right">
@@ -150,7 +158,7 @@ const BuyModal = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

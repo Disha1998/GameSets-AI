@@ -111,7 +111,7 @@ const ItemsTabs = () => {
                     Blockchain:
                   </span>
                   <span className="text-jacarta-700 dark:text-white">
-                    Ethereum
+                    Fantom
                   </span>
                 </div>
               </div>
