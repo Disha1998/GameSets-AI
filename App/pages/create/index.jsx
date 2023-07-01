@@ -158,8 +158,8 @@ const Create = () => {
 
   const createNft = async () => {
 
-  const maticToUsd = await FTMToUsdPricee(price)
-  console.log(maticToUsd._hex / 100000000);
+  const ftmToUsd = await FTMToUsdPricee(price)
+  console.log(ftmToUsd._hex / 100000000);
   let tokenid = await totalNfts();
     const nftData = {
       title: title,
@@ -170,7 +170,7 @@ const Create = () => {
       category: category,
       owner: localStorage.getItem('address'),
       tokenId: tokenid,
-      maticToUSD:maticToUsd._hex / 100000000
+      maticToUSD:ftmToUsd._hex / 100000000
     }
     
     console.log(nftData);
