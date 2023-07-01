@@ -21,13 +21,12 @@ const hero = () => {
       <div className="container h-full mx-auto">
         <div className="grid h-full items-center gap-4 md:grid-cols-12">
           <div className="col-span-6 flex h-full flex-col items-center justify-center py-10 md:items-start md:py-20 xl:col-span-4">
-            <h1 className="text-jacarta-700 font-bold font-display mb-6 text-center text-5xl dark:text-white md:text-left lg:text-6xl xl:text-7xl animate-gradient">
-              Buy, sell and collect NFTs.
+            <h1 className="text-jacarta-500 font-bold font-display mb-6 text-center text-xl dark:text-white md:text-left lg:text-5xl xl:text-5xl animate-gradient">
+              Buy, sell and collect AI Generated NFTs.
               {/* Super cool */}
             </h1>
             <p className="dark:text-jacarta-200 mb-8 text-center text-lg md:text-left">
-              The worlds largest digital marketplace for crypto collectibles and
-              non-fungible tokens
+            The world largest digital marketplace for generative AI based dynamic profile avatars, gaming characters etc.
             </p>
             <div className="flex space-x-4">
               <Link href="/create">

@@ -1,10 +1,8 @@
 import React from "react";
 import {
   Hero,
-  Bids,
-  Top_collection,
-  Tranding_category,
-  NewseLatter,
+  Bids, 
+  Tranding_category, 
 } from "../../components/component";
 import Meta from "../../components/Meta";
 

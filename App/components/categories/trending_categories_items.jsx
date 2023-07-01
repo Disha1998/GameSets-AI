@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { tranding_category_filter } from "../../data/categories_data";
 import CategoryItem from "./categoryItem";
-import { trendingCategoryData } from "../../data/categories_data";
-// import Recently_added_dropdown from "../dropdown/recently_added_dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTrendingCategoryItemData } from "../../redux/counterSlice";
-import { SupercoolAuthContext } from "../../context/supercoolContext";
 const Trending_categories_items = ({ data }) => {
-  const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { allNfts } = superCoolContext;
   const [itemdata, setItemdata] = useState(data);
   const dispatch = useDispatch();
   const [filterVal, setFilterVal] = useState(0);
@@ -16,8 +11,8 @@ const Trending_categories_items = ({ data }) => {
 
 
   const handleFilter = (category) => {
-    // console.log('category---', category);
-    // console.log('item data---', itemdata);
+    console.log('category---', category);
+    console.log('item data---', itemdata);
 
     if (category !== "all") {
       setItemdata(
@@ -29,8 +24,12 @@ const Trending_categories_items = ({ data }) => {
   };
 
 
+
   useEffect(() => {
+
+
     dispatch(updateTrendingCategoryItemData(itemdata.slice(0, 8)));
+
   }, [itemdata, dispatch]);
 
   return (
@@ -39,6 +38,7 @@ const Trending_categories_items = ({ data }) => {
       <div className="mb-8 flex flex-wrap items-center justify-between">
         <ul className="flex flex-wrap items-center">
           {tranding_category_filter.map(({ id, svg, text }) => {
+            // console.log(id,'iddd');
             if (text === "all") {
               return (
                 <li className="my-1 mr-2.5" key={id}>

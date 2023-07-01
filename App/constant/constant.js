@@ -1,6 +1,6 @@
-const WEATHER_API_CONTRACT = "0x6abcD48695d9256d3f87a4bD1cA470e3b311652f"
-export const SUPER_COOL_NFT_CONTRACT = "0x216085A34B1cCeb481098e7A9863dcFc8De1d15e"
-// export const SUPER_COOL_NFT_CONTRACT = "0xe98C5C2cD9E16D177373BC44CC3058Fbd1Cae15A"
+const WEATHER_API_CONTRACT = "0xcD813286DeB24541f97b05962D721D723b68658d"
+export const SUPER_COOL_NFT_CONTRACT = "0x8aB17E12A2284882e05a48D39CD101663289C6Db"
+
 export const abi = [
   {
     "inputs": [
@@ -259,7 +259,7 @@ export const abi = [
         "type": "uint256"
       }
     ],
-    "name": "convertMaticUsd",
+    "name": "convertFTMUsd",
     "outputs": [
       {
         "internalType": "uint256",
@@ -279,19 +279,6 @@ export const abi = [
       }
     ],
     "name": "dynamicTokenIds",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "fee",
     "outputs": [
       {
         "internalType": "uint256",
@@ -336,7 +323,7 @@ export const abi = [
   },
   {
     "inputs": [],
-    "name": "getMaticUsd",
+    "name": "getFTMUsd",
     "outputs": [
       {
         "internalType": "uint256",
@@ -345,19 +332,6 @@ export const abi = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getRandomNumber",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -460,19 +434,6 @@ export const abi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "keyHash",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "string",
@@ -566,37 +527,6 @@ export const abi = [
       }
     ],
     "name": "performUpkeep",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "ranNum",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "requestId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "randomness",
-        "type": "uint256"
-      }
-    ],
-    "name": "rawFulfillRandomness",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -790,3 +720,4 @@ export const abi = [
     "type": "function"
   }
 ]
+ 

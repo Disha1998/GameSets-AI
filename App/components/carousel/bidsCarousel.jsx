@@ -65,12 +65,13 @@ const BidsCarousel = () => {
                           <img
                             src={item.image}
                             alt={item.title}
-                            height={230}
+                            // height={250}
                             width={230}
                             layout="responsive"
                             objectFit="cover"
                             className="rounded-[0.625rem] w-full"
                             loading="lazy"
+                            style={{height:"250px"}}
                           />
                         </Link>
                       </div>

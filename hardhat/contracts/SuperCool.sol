@@ -3,14 +3,15 @@ pragma solidity ^0.8.1;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 
 import "./WeatherAPI.sol";
 
-contract SUPCool is ERC721URIStorage, VRFConsumerBase {
+contract SUPCool is ERC721URIStorage {
     using SafeCast for int256;
     using SafeMath for uint256;
     using Counters for Counters.Counter;
@@ -19,12 +20,6 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
     WeatherAPI public weatherAPI;
 
     AggregatorV3Interface internal ftm_usd_price_feed;
-
-
-    uint256 maxPrompt = 20;
-    uint256 public fee;
-    uint256 public ranNum;
-    bytes32 public keyHash;
 
     mapping(uint256 => uint256) private tokenPrices;
     mapping(address => uint256[]) private userNFTs;
@@ -44,13 +39,11 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
         string memory symbol,
         uint256 _interval,
         address _weatherAPI
-    ) ERC721(name, symbol) VRFConsumerBase(0x8C7382F9D8f56b33781fE506E897a4F1e2d17255, 0xfaFedb041c0DD4fA2Dc0d87a6B0979Ee6FA7af5F) {
+    ) ERC721(name, symbol) {
         ftm_usd_price_feed = AggregatorV3Interface(
             0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D
         );
 
-        keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
-        fee = 1000000000000000;
         interval = _interval;
         lastTimeStamp = block.timestamp;
         weatherAPI = WeatherAPI(_weatherAPI);
@@ -193,7 +186,7 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
     }
 
     function convertFTMUsd(uint _amountInUsd) public view returns (uint) {
-        uint maticUsd = getMaticUsd();
+        uint maticUsd = getFTMUsd();
 
         uint256 amountInUsd = _amountInUsd.mul(maticUsd).div(10 ** 18);
 
@@ -210,23 +203,6 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
         return tokenCounter.current();
     }
 
-    function fulfillRandomness(
-        bytes32 requestId,
-        uint256 randomness
-    ) internal virtual override {
-        uint256 winnerIndex = randomness % maxPrompt;
-        ranNum = winnerIndex;
-    }
-
-    function generateRandomNum() private returns (bytes32 requestId) {
-        require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK");
-        return requestRandomness(keyHash, fee);
-    }
-
-    function getRandomNumber() public returns (uint256) {
-        generateRandomNum();
-    }
-
     function storeProfileData(string memory metadata) public {
         Profile[msg.sender] = metadata;
     }
@@ -234,7 +210,6 @@ contract SUPCool is ERC721URIStorage, VRFConsumerBase {
     function getUserProfile(address user) public view returns (string memory) {
         return Profile[user];
     }
-
 
 
 

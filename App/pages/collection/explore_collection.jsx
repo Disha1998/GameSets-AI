@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { tranding_category_filter } from "../../data/categories_data";
 import Link from "next/link";
 import { HeadLine } from "../../components/component";
-import Feature_collections_data from "../../data/Feature_collections_data";
-import Collection_dropdown from "../../components/dropdown/collection_dropdown";
+import Feature_collections_data from "../../data/Feature_collections_data"; 
 import Explore_collection_item from "../../components/collectrions/explore_collection_item";
 import Head from "next/head";
 import Meta from "../../components/Meta";
@@ -109,7 +108,7 @@ const Explore_collection = () => {
               })}
             </ul>
             {/* dropdown */}
-            <Collection_dropdown />
+            {/* <Collection_dropdown /> */}
           </div>
 
           {/* <!-- Grid --> */}

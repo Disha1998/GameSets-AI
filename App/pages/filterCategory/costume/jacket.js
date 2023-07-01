@@ -7,12 +7,12 @@ const JacketCostume = () => {
 
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
-    const [jacketStyle, setJacketStyle] = useState(jacketStyle || 'jacket style');
-    const [jacketLength, setJacketLength] = useState(jacketLength || 'jacket length');
-    const [pocketStyle, setPocketStyle] = useState(pocketStyle || 'pocket style');
-    const [jacketColor, setJacketColor] = useState(jacketColor || 'color');
-    const [jacketPattern, setJacketPattern] = useState(jacketPattern || 'pattern');
+    const [designStyle, setDesignStyle] = useState( 'design style');
+    const [jacketStyle, setJacketStyle] = useState(  'jacket style');
+    const [jacketLength, setJacketLength] = useState(  'jacket length');
+    const [pocketStyle, setPocketStyle] = useState(  'pocket style');
+    const [jacketColor, setJacketColor] = useState( 'color');
+    const [jacketPattern, setJacketPattern] = useState( 'pattern');
 
 
 
@@ -212,16 +212,17 @@ const JacketCostume = () => {
 
 
                 <div style={{
-                    // textAlign: "center" 
-                    // , width: "100%" 
+                    textAlign: "center"
                 }}>
-                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                        //  width: "100%", 
-                        fontSize: "20px"
-                    }} >Submit</Button>
+                    <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                        width: "90%",
+                        fontSize: "18px",
+                        border: "none",
+
+                    }} >Submit</button>
                 </div>
 
-                
+
             </div>
 
 

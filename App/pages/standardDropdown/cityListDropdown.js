@@ -44,7 +44,7 @@ const CityListDropdown = ({ dropdownItemText, state, setState }) => {
                                 : ' dark:bg-jacarta-800 z-10 max-w-sm w-[23rem] whitespace-nowrap rounded-xl bg-white py-4 px-2 text-left shadow-xl absolute top-full hidden'
                         }
                     >
-                        {dropdownItemText.map(({ id, text }) => {
+                        {dropdownItemText && dropdownItemText.map(({ id, text }) => {
                             return (
                                 <button
                                     key={id}

@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import WalletButton from "../wallet-btn/WalletButton";
 import { SupercoolAuthContext } from "../../context/supercoolContext";
-import localforage from 'localforage'
+ 
 
 export default function Header01() {
   const [toggle, setToggle] = useState(false);
@@ -27,10 +27,12 @@ export default function Header01() {
       }
 
     });
+    if (typeof window !== 'undefined') {
+     const value= localStorage.getItem('address'); 
+        setAddress(value) 
+    } 
   });
-  localforage.getItem('address').then((value) => {
-    setAddress(value)
-  })
+ 
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { login, logout } = superCoolContext;
 
@@ -195,7 +197,7 @@ export default function Header01() {
           <Link className="shrink-0" href="/">
             <p className="text-jacarta-700 font-bold font-display mb-6 text-center text-2xl dark:text-white md:text-left lg:text-2xl xl:text-2xl animate-gradient">
               {/* Buy, sell and collect NFTs. */}
-              Supercool
+              Supercool AI
             </p>
           </Link>
 

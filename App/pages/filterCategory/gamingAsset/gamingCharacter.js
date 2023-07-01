@@ -6,12 +6,12 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const GamingCharacterFeatures = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [characterType, setCharacterType] = useState(characterType || 'character type');
-    const [clothingStyle, setClothingStyle] = useState(clothingStyle || 'clothing style');
-    const [accessories, setAccessories] = useState(accessories || 'accessories');
-    const [footwear, setFootwear] = useState(footwear || 'footwear');
-    const [hairstyle, setHairstyle] = useState(hairstyle || 'hair style');
-    const [imageStyle, setImageStyle] = useState(imageStyle || 'image style');
+    const [characterType, setCharacterType] = useState(  'character type');
+    const [clothingStyle, setClothingStyle] = useState(  'clothing style');
+    const [accessories, setAccessories] = useState( 'accessories');
+    const [footwear, setFootwear] = useState( 'footwear');
+    const [hairstyle, setHairstyle] = useState(  'hair style');
+    const [imageStyle, setImageStyle] = useState(  'image style');
 
 
 
@@ -276,15 +276,15 @@ const GamingCharacterFeatures = () => {
                 />
 
                 <div style={{
-                    // textAlign: "center" 
-                    // , width: "100%" 
+                    textAlign: "center"
                 }}>
-                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                        //  width: "100%", 
-                        fontSize: "20px"
-                    }} >Submit</Button>
-                </div>
+                    <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                        width: "90%",
+                        fontSize: "18px",
+                        border: "none",
 
+                    }} >Submit</button>
+                </div>
                 {/* <Button onClick={generateText}>Submit</Button> */}
 
             </div>

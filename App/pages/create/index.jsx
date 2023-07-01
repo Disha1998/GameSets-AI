@@ -14,11 +14,11 @@ import RendersellNft from "../renderSellNft/renderSellNft";
 
 const Create = () => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { uploadOnIpfs, handleImgUpload, loading, setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding, getAllNfts } = superCoolContext;
+  const { uploadOnIpfs, FTMToUsdPricee, loading, provider,setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding, getAllNfts,storeDataInFirebase } = superCoolContext;
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Profile avatar" || category);
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState("0.1");
   const [chain, setChain] = useState("Ethereum" || chain);
   const [rendersellNFT, setrendersellNFT] = useState(false)
   const [imageUrl, setImageUrl] = useState('');
@@ -33,6 +33,7 @@ const Create = () => {
   );
   const [images, setImages] = React.useState([]);
   const [selectedImage, setSelectedImage] = React.useState(null);
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -48,69 +49,61 @@ const Create = () => {
   });
   const openai = new OpenAIApi(configuration);
 
-
-  const NFT_STORAGE_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNTYwMUJiOWNFOTkyQjZkYjU4OWYzMGY1NDZGMmYxODJhM0RCOTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzM0NzIzNzMwNSwibmFtZSI6InRydXN0aWZpZWQtZnZtIn0.YDlyBmcRUT0lb2HmMzT0tS1AUY8pGNp1NHqN4xr8_fk";
+  const NFT_STORAGE_TOKEN =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNTYwMUJiOWNFOTkyQjZkYjU4OWYzMGY1NDZGMmYxODJhM0RCOTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzM0NzIzNzMwNSwibmFtZSI6InRydXN0aWZpZWQtZnZtIn0.YDlyBmcRUT0lb2HmMzT0tS1AUY8pGNp1NHqN4xr8_fk";
 
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 
 
   const generateImage = async () => {
     setGenerateLoading(true);
-    setPlaceholder(`Search ${prompt}...`);
+    setPlaceholder(`Search ${prompt}..`);
+    setLoading(true);
+
     try {
       const res = await openai.createImage({
         prompt: prompt,
-        n: 3,
-        size: "256X256",
+        n: 1,
+        size: "256x256",
       });
       console.log(res);
-
+      setLoading(false);
       let arry = [];
       for (let i = 0; i < res.data.data.length; i++) {
         const img_url = res.data.data[i].url;
-        console.log('img_url', img_url);
         const api = await axios.create({
-          baseURL:
-            "https://open-ai-enwn.onrender.com",
+          baseURL: "https://open-ai-enwn.onrender.com",
         });
         const obj = {
-          url: img_url
-        }
+          url: img_url,
+        };
         let response = await api
           .post("/image", obj)
           .then((res) => {
             return res;
           })
           .catch((error) => {
-            console.log(error);
+            console.log(error, '----<>');
           });
         const arr = new Uint8Array(response.data.data);
-        const blob = new Blob([arr], { type: 'image/jpeg' });
-        const imageFile = new File(
-          [blob],
-          `data.png`,
-          {
-            type: "image/jpeg",
-          }
-        );
+        const blob = new Blob([arr], { type: "image/jpeg" });
+        const imageFile = new File([blob], `data.png`, {
+          type: "image/jpeg",
+        });
         const metadata = await client.store({
           name: "data",
           description: "data",
-          image: imageFile
+          image: imageFile,
         });
-        const imUrl = `https://nftstorage.link/ipfs/${metadata.ipnft}/metadata.json`;
-        console.log(imUrl, "imUrl");
+        const imUrl = `https://ipfs.io/ipfs/${metadata.ipnft}/metadata.json`;
+
         const data = (await axios.get(imUrl)).data;
-        console.log(data.image, "data");
         const rep = data.image.replace(
           "ipfs://",
-          "https://nftstorage.link/ipfs/"
+          "https://ipfs.io/ipfs/"
         );
-        console.log(rep, '==rep');
-
         arry.push(rep);
       }
-      console.log(arry, '----arry');
       setImages(arry);
       setGenerateLoading(false);
 
@@ -124,9 +117,20 @@ const Create = () => {
 
 
   const mintNft = async (_price, _metadataurl) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner(); 
+    
+    const contract = new ethers.Contract(
+      SUPER_COOL_NFT_CONTRACT,
+      abi,
+      signer
+    ); 
+
     try {
       const tx = await contract.mintNFT(_price, _metadataurl);
       await tx.wait();
+    await storeDataInFirebase(_metadataurl);
+
     } catch (e) {
       console.error("Failed to mint NFT: " + e.message);
     }
@@ -140,32 +144,39 @@ const Create = () => {
     setrendersellNFT(false);
   };
 
-  let provider;
-  let signer;
-  if (typeof window !== "undefined") {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
+
+  const totalNfts = async () => {
+    const contractPro = new ethers.Contract(
+      SUPER_COOL_NFT_CONTRACT,
+      abi,
+      provider
+    );
+    const numOfNfts = await contractPro.getTotalSupply();
+    return Number(numOfNfts) + 1;
   }
 
-  const contract = new ethers.Contract(
-    SUPER_COOL_NFT_CONTRACT,
-    abi,
-    signer
-  );
 
-  const nftData = {
-    title: title,
-    description: description,
-    price: price,
-    chain: chain,
-    image: "https://bafkreif4urrcdypupvez7ombtizi2asquarxhm3tojckbl35if5zzdqbpi.ipfs.nftstorage.link/",
-    category: category
-  }
   const createNft = async () => {
+
+  const maticToUsd = await FTMToUsdPricee(price)
+  console.log(maticToUsd._hex / 100000000);
+  let tokenid = await totalNfts();
+    const nftData = {
+      title: title,
+      description: description,
+      price: price,
+      chain: chain,
+      image: selectedImage,
+      category: category,
+      owner: localStorage.getItem('address'),
+      tokenId: tokenid,
+      maticToUSD:maticToUsd._hex / 100000000
+    }
+    
     console.log(nftData);
     setMintLoading(true);
     let metadataurl = await uploadOnIpfs(nftData);
-    mintNft(ethers.utils.parseUnits(price?.toString(), "ether"), metadataurl);
+   await mintNft(ethers.utils.parseUnits(nftData.price?.toString(), "ether"), metadataurl);
   }
 
   function handleSelectedImg(url) {

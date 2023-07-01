@@ -7,9 +7,9 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const SkritCostume = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
-    const [skritLength, setSkritLength] = useState(skritLength || 'skrit length');
-    const [skritColor, setSkritColor] = useState(skritColor || 'color');
+    const [designStyle, setDesignStyle] = useState(  'design style');
+    const [skritLength, setSkritLength] = useState(  'skrit length');
+    const [skritColor, setSkritColor] = useState( 'color');
 
 
     let detailPrompt = `Rewrite the prompt and add some more lines from you, giving it greater emphasis with more details, to create Girl's costume Skrit based on this information:- make sure image style will be ${designStyle}, skrit color:${skritColor},shirt's length should be:${skritLength} and Remember to infuse the avatar with vitality and energy`
@@ -121,15 +121,15 @@ const SkritCostume = () => {
             />
 
             <div style={{
-                // textAlign: "center" 
-                // , width: "100%" 
+                textAlign: "center"
             }}>
-                <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                    //  width: "100%", 
-                    fontSize: "20px"
-                }} >Submit</Button>
-            </div>
+                <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                    width: "90%",
+                    fontSize: "18px",
+                    border: "none",
 
+                }} >Submit</button>
+            </div>
             {/* <Button onClick={generateText}>Submit</Button> */}
         </>
     )

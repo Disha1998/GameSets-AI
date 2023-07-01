@@ -56,7 +56,7 @@ export default function CreateDynemic() {
   const openai = new OpenAIApi(configuration);
 
 
-  const NFT_STORAGE_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNTYwMUJiOWNFOTkyQjZkYjU4OWYzMGY1NDZGMmYxODJhM0RCOTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzM0NzIzNzMwNSwibmFtZSI6InRydXN0aWZpZWQtZnZtIn0.YDlyBmcRUT0lb2HmMzT0tS1AUY8pGNp1NHqN4xr8_fk";
+  const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 
 
@@ -68,7 +68,7 @@ export default function CreateDynemic() {
       const res = await openai.createImage({
         prompt: prompt,
         n: 3,
-        size: "512x512",
+        size: "256x256",
       });
       console.log(res);
 
@@ -128,12 +128,29 @@ export default function CreateDynemic() {
   };
 
   const changeDynamicMetadata = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+   const signer = provider.getSigner();
+
+  const contract = new ethers.Contract(
+    SUPER_COOL_NFT_CONTRACT,
+    abi,
+    signer
+  );
     const tx = await contract.changeDynamicNFTMetadata("1");
     await tx.wait();
 
   }
 
   const mintNft = async (_price, _metadataurl) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+
+  const contract = new ethers.Contract(
+    SUPER_COOL_NFT_CONTRACT,
+    abi,
+    signer
+  );
+
     try {
       const tx = await contract.mintNFT(_price, _metadataurl);
       await tx.wait();
@@ -150,29 +167,29 @@ export default function CreateDynemic() {
     setrendersellNFT(false);
   };
 
-  let provider;
-  let signer;
-  if (typeof window !== "undefined") {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
-  }
+  
 
-  const contract = new ethers.Contract(
-    SUPER_COOL_NFT_CONTRACT,
-    abi,
-    signer
-  );
 
-  const nftData = {
-    title: title,
-    description: description,
-    price: price,
-    city: city,
-    chain: chain,
-    image: selectedImage,
-    category: category
-  }
   const StoreDyanamicNftsMetadata = async () => {
+    const nftData = {
+      title: title,
+      description: description,
+      price: price,
+      city: city,
+      chain: chain,
+      image: selectedImage,
+      category: category
+    }
+    
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+  
+    const contract = new ethers.Contract(
+      SUPER_COOL_NFT_CONTRACT,
+      abi,
+      signer
+    );
+  
     console.log(nftData);
     let metadataurl = await uploadOnIpfs(nftData);
     dynamicMetadataArr.push(metadataurl);

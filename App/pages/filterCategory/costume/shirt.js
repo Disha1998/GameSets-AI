@@ -7,11 +7,11 @@ import { SupercoolAuthContext } from "../../../context/supercoolContext";
 const ShirtCostume = () => {
     const superCoolContext = React.useContext(SupercoolAuthContext);
     const { setPrompt } = superCoolContext;
-    const [designStyle, setDesignStyle] = useState(designStyle || 'design style');
-    const [shirtType, setShirtType] = useState(shirtType || 'shirt type');
-    const [sleeveLength, setSleeveLength] = useState(sleeveLength || 'sleeve length');
-    const [shirtColor, setShirtColor] = useState(shirtColor || 'color');
-    const [shirtPattern, setShirtPattern] = useState(shirtPattern || 'pattern');
+    const [designStyle, setDesignStyle] = useState( 'design style');
+    const [shirtType, setShirtType] = useState(  'shirt type');
+    const [sleeveLength, setSleeveLength] = useState(  'sleeve length');
+    const [shirtColor, setShirtColor] = useState( 'color');
+    const [shirtPattern, setShirtPattern] = useState( 'pattern');
 
 
 
@@ -160,13 +160,14 @@ const ShirtCostume = () => {
                 />
 
                 <div style={{
-                    // textAlign: "center" 
-                    // , width: "100%" 
+                    textAlign: "center"
                 }}>
-                    <Button color="secondary" className="animate-gradient mb-5" onClick={generateText} variant="outlined" style={{
-                        //  width: "100%", 
-                        fontSize: "20px",
-                    }} >Submit</Button>
+                    <button color="secondary" className="mb-5 bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all" onClick={generateText} variant="outlined" style={{
+                        width: "90%",
+                        fontSize: "18px",
+                        border: "none",
+
+                    }} >Submit</button>
                 </div>
 
             </div>

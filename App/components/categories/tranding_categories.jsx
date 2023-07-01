@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { trendingCategoryData } from "../../data/categories_data";
+// import { trendingCategoryData } from "../../data/categories_data";
 import { HeadLine } from "../component";
 import Trending_categories_items from "./trending_categories_items";
 import { SupercoolAuthContext } from "../../context/supercoolContext";
