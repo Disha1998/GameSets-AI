@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 // import Auctions_dropdown from "../../components/dropdown/Auctions_dropdown";
-import user_data from "../../data/user_data";
 import User_items from "../../components/user/User_items";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import Head from "next/head";
-import Meta from "../../components/Meta";
-import { SupercoolAuthContext } from "../../context/supercoolContext"; 
+import { SupercoolAuthContext } from "../../context/supercoolContext";
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+
 
 const User = () => {
 
   const [address, setAddress] = useState();
   const router = useRouter();
-  const [walletAddress, setWalletAddress] = useState(undefined);
   const pid = router.query.user;
   const [coverePhoto, setCoverePhoto] = useState();
   const [username, setUsername] = useState();
@@ -25,31 +22,16 @@ const User = () => {
   const [copied, setCopied] = useState(false);
   const [data, setData] = useState([]);
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { allNfts, getProfileData } = superCoolContext;
- 
+  const { allNfts,db } = superCoolContext;
 
   useEffect(() => {
-    ProfileData();
-    if (allNfts.length > 0) {
-      const add = localStorage.getItem('address')
-        setAddress(add);
-        getUserData(add);
-      
+
+    const address = localStorage.getItem('address');
+    if (address) {
+      getProfileData();
+      getUserData(address)
     }
   }, [])
-  const ProfileData = async () => {
-const add = localStorage.getItem('address')
-console.log('address for user data',add);
-      setWalletAddress(add)
-
-      const response = await getProfileData(add);
-      console.log('response--', response);
-      setUsername(response.data.username)
-      setBio(response.data.bio)
-      setCoverePhoto(response.data.coverimage);
-      setProfilePhoto(response.data.profilephoto)
-
-  }
 
   const getUserData = async (address) => {
     const dataa = [];
@@ -61,8 +43,28 @@ console.log('address for user data',add);
     }
     setData(dataa);
   }
-  // console.log('user data', data);
 
+  const getProfileData = async () => {
+    try {
+      const q = query(
+        collection(db, "UserProfile"),
+        where("walletAddress", "==", localStorage.getItem('address'))
+      );
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        console.log("First create profile!!");
+      } else {
+        const data = querySnapshot.docs.map((doc) => doc.data());
+        setUsername(data[0].username)
+        setBio(data[0].bio)
+        setCoverePhoto(data[0].coverimage);
+        setProfilePhoto(data[0].profilephoto)
+      }
+
+    } catch (error) {
+      console.error("Error fetching user profile: ", error);
+    }
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -97,13 +99,13 @@ console.log('address for user data',add);
                 objectFit="contain"
                 className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"
               />
-           
+
             </figure>
           </div>
 
           <div className="container">
             <div className="text-center">
-              <h4 className="font-display text-jacarta-700 mb-2 text-2xl font-medium dark:text-white">
+              <h4 className="font-display text-jacarta-700 mt-4 mb-2 text-2xl font-medium dark:text-white">
                 {username ? username : "user"}
               </h4>
               <div className="dark:bg-jacarta-700 dark:border-jacarta-600 border-jacarta-100 mb-8 inline-flex items-center justify-center rounded-full border bg-white py-1.5 px-4">
@@ -121,10 +123,10 @@ console.log('address for user data',add);
                 >
                   <button className="js-copy-clipboard dark:text-jacarta-200 max-w-[10rem] select-none overflow-hidden text-ellipsis whitespace-nowrap">
                     <CopyToClipboard
-                      text={address}
+                      text={localStorage.getItem('address')}
                       onCopy={() => setCopied(true)}
                     >
-                      <span>{address}</span>
+                      <span>{localStorage.getItem('address')}</span>
                     </CopyToClipboard>
                   </button>
                 </Tippy>

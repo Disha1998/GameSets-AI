@@ -4,6 +4,7 @@ import CategoryItem from "./categoryItem";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTrendingCategoryItemData } from "../../redux/counterSlice";
 const Trending_categories_items = ({ data }) => {
+  console.log(data);
   const [itemdata, setItemdata] = useState(data);
   const dispatch = useDispatch();
   const [filterVal, setFilterVal] = useState(0);
