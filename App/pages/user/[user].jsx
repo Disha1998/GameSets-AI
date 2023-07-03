@@ -26,12 +26,14 @@ const User = () => {
   const { allNfts,db } = superCoolContext;
 
   useEffect(() => {
-
-    const address = localStorage.getItem('address');
-    if (address) {
-      getProfileData();
-      getUserData(address)
+    if (typeof window !== 'undefined') { 
+      const address = localStorage.getItem('address');
+      if (address) {
+        getProfileData();
+        getUserData(address)
+      }
     }
+   
   }, [])
 
   const getUserData = async (address) => {

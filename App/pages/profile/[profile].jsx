@@ -7,27 +7,21 @@ import Head from 'next/head';
 import Meta from '../../components/Meta';
 import { ethers, Signer } from 'ethers';
 import { SupercoolAuthContext } from '../../context/supercoolContext';
-import axios from 'axios'; 
+import axios from 'axios';
 import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 
 const Edit_user = () => {
 	const superCoolContext = React.useContext(SupercoolAuthContext);
-	const { handleImgUpload,UserProfileRef,db } = superCoolContext;
+	const { handleImgUpload, UserProfileRef, db } = superCoolContext;
 	const [coverePhoto, setCoverePhoto] = useState();
 	const [username, setUsername] = useState("");
 	const [walletAddress, setWalletAddress] = useState(undefined);
 	const [bio, setBio] = useState("");
 	const [profilePhoto, setProfilePhoto] = useState();
+	const [forLocalstorage, setForLocalstorage] = useState();
 
-	
-	const Profiledata = {
-		username: username,
-		bio: bio,
-		profilephoto: profilePhoto,
-		coverimage: coverePhoto,
-		walletAddress: localStorage.getItem('address')
-	}
-	 
+
+
 	const UsernameEvent = (e) => {
 		setUsername(e.target.value)
 	}
@@ -47,10 +41,16 @@ const Edit_user = () => {
 
 
 	async function storeUserProfile() {
-		console.log(Profiledata);
+		const Profiledata = {
+			username: username,
+			bio: bio,
+			profilephoto: profilePhoto,
+			coverimage: coverePhoto,
+			walletAddress: forLocalstorage
+		}
 		const q = query(
 			collection(db, "UserProfile"),
-			where("walletAddress", "==", localStorage.getItem('address'))
+			where("walletAddress", "==", forLocalstorage)
 		);
 
 		const querySnapshot = await getDocs(q);
@@ -94,21 +94,31 @@ const Edit_user = () => {
 	}
 
 	const updateProfile = async () => {
-		await storeUserProfile()
+		if (typeof window !== 'undefined') {
+			const address = forLocalstorage
+			if (address) {
+				await storeUserProfile()
+			}
+		}
+
 	}
 
 	useEffect(() => {
-		const address = localStorage.getItem('address');
-		if (address) {
-			getEditProfileData();
+		if (typeof window !== 'undefined') {
+			const address = forLocalstorage
+			setForLocalstorage(address);
+			if (address) {
+				getEditProfileData(address);
+			}
 		}
+
 	}, [])
 
-	const getEditProfileData = async () => {
+	const getEditProfileData = async (address) => {
 		try {
 			const q = query(
 				collection(db, "UserProfile"),
-				where("walletAddress", "==", localStorage.getItem('address'))
+				where("walletAddress", "==", address)
 			);
 			const querySnapshot = await getDocs(q);
 
@@ -131,6 +141,7 @@ const Edit_user = () => {
 			<Meta title="Profile || Xhibiter | NFT Marketplace Next.js Template" />
 			<div className="pt-[5.5rem] lg:pt-24">
 				{/* <!-- Banner --> */}
+
 				<div className="relative">
 					<img
 						src={coverePhoto}
@@ -210,13 +221,13 @@ const Edit_user = () => {
 										className="dark:bg-jacarta-700 border-jacarta-100 hover:ring-accent/10 focus:ring-accent dark:border-jacarta-600 dark:placeholder:text-jacarta-300 w-full rounded-lg py-3 hover:ring-2 dark:text-white px-3"
 										placeholder="wallet address"
 										required
-										value={localStorage.getItem('address')}
+										value={forLocalstorage}
 										disabled
 									// onChange={UsernameEvent}
 									/>
 									{/* <UserId
 										classes="js-copy-clipboard dark:bg-jacarta-700 border-jacarta-100 hover:bg-jacarta-50 dark:border-jacarta-600 dark:text-jacarta-300 flex w-full select-none items-center rounded-lg border bg-white py-3 px-4"
-									userId={localStorage.getItem('address').slice(0, 34)}
+									userId={forLocalstorage.slice(0, 34)}
 									/> */}
 								</div>
 								<button className="bg-accent shadow-accent-volume hover:bg-accent-dark rounded-full py-3 px-8 text-center font-semibold text-white transition-all"
