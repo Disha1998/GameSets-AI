@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ChainDropdown from "../standardDropdown/chainDropdown";
 import CityListDropdown from "../standardDropdown/cityListDropdown";
 
-const RenderDynamicsellNft = ({ StoreDyanamicNftsMetadata, rendersellNFT, rendersellNFTAgain, setTitle, setDescription, city,setCity, setPrice, createNft, mintLoading, category, setCategory, chain, setChain }) => {
+const RenderDynamicsellNft = ({ StoreDyanamicNftsMetadata, rendersellNFT, rendersellNFTAgain, setTitle, setDescription, city,setCity, setPrice, mintLoading, category, setCategory, chain, setChain }) => {
     const blockChainOptionsText = [
         {
             id: 1,
