@@ -7,7 +7,7 @@ import { ethers } from 'ethers';
 import { RandomPrompts } from "../components/RandomImgs";
 import axios from 'axios';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc } from "firebase/firestore";
 
 import { getDatabase, ref, set } from "firebase/database";
 export const SupercoolAuthContext = createContext(undefined);
@@ -23,7 +23,8 @@ export const SupercoolAuthContextProvider = (props) => {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
 
-  console.log(allNfts);
+
+  // console.log('all nfts',allNfts);
   useEffect(() => {
     getSignerFromProvider();
   }, [])
@@ -39,31 +40,43 @@ export const SupercoolAuthContextProvider = (props) => {
 
 
   const app = initializeApp(firebaseConfig);
-  // const analytics = getAnalytics(app);
+  const db = getFirestore(app);
   const firestore = getFirestore();
   const collectionRef = collection(firestore, "TokenUri");
+  const UserProfileRef = collection(firestore, "UserProfile");
 
-  // const database = getDatabase(app);
-  const totalNfts = async () => {
-    const contractPro = new ethers.Contract(
-      SUPER_COOL_NFT_CONTRACT,
-      abi,
-      provider
-    );
-    const numOfNfts = await contractPro.getTotalSupply();
-    console.log(Number(numOfNfts));
-    return Number(numOfNfts) + 1;
-  }
+  // const totalNfts = async () => {
+  //   const contractPro = new ethers.Contract(
+  //     SUPER_COOL_NFT_CONTRACT,
+  //     abi,
+  //     provider
+  //   );
+  //   const numOfNfts = await contractPro.getTotalSupply();
+  //   console.log('total supp--',Number(numOfNfts));
+  //   return Number(numOfNfts) + 1;
+  // }
   // totalNfts()
-  async function storeDataInFirebase(metadataUrl) {
-    let tokenid = await totalNfts();
-    console.log(tokenid);
-    const newData = {
-      id: tokenid,
-      url: metadataUrl
-    };
-    const docRef = await addDoc(collectionRef, newData);
+
+  async function storeDataInFirebase(metadata) {
+    const docRef = await addDoc(collectionRef, metadata);
     console.log("Data stored successfully! Document ID:", docRef.id);
+  }
+
+  const updateForPurchase = async (tokenId) => {
+    console.log('tok id',tokenId);
+    const q = query(
+      collection(db, "TokenUri"),
+      where("tokenId", "==", tokenId)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((fire) => {
+      const data = {
+        owner: localStorage.getItem('address'),
+      };
+      const dataref = doc(db, "TokenUri", fire.id);
+      updateDoc(dataref, data);
+      console.log('updated buyer!!');
+    })
   }
 
   async function getSignerFromProvider() {
@@ -151,43 +164,19 @@ export const SupercoolAuthContextProvider = (props) => {
     setPrompt(RandomPrompts[num]);
     setGenRanImgLoding(false);
   }
-  const getProfileData = async (add) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-
-    const contract = new ethers.Contract(
-      SUPER_COOL_NFT_CONTRACT,
-      abi,
-      signer
-    );
-    console.log('use add--', add);
-    if (add !== undefined) {
-      const dataurl = await contract.getUserProfile(add);
-      console.log(dataurl);
-      const response = await axios.get(dataurl);
-      // console.log(response.data);
-      return response;
-    }
-  }
 
   async function getAllNfts() {
     try {
       const querySnapshot = await getDocs(collectionRef);
       const data = querySnapshot.docs.map((doc) => doc.data());
       console.log("Fetched data:", data);
-      const metadatas = [];
-
-      for (let i = 0; i <= data.length - 1; i++) {
-        console.log(data[i], '------------');
-        let tokenURI = data[i].url;
-        // console.log(tokenURI);
-        const response = await fetch(tokenURI);
-        const metadata = await response.json();
-
-        // console.log(await response.json());
-        metadatas.push(metadata);
+      let allnfts = [];
+      for (let i = 0; i < data.length; i++) {
+        let item = data[i];
+        allnfts.push(item);
+        setAllNfts(allnfts);
       }
-      setAllNfts(metadatas);
+      console.log('all nfts--',allnfts);
     } catch (error) {
       console.error("Error fetching data: ", error);
       return [];
@@ -196,7 +185,7 @@ export const SupercoolAuthContextProvider = (props) => {
 
   useState(() => {
     setTimeout(() => {
-      console.log('running usestate');
+      // console.log('running usestate');
       getAllNfts()
     }, 5000);
   }, [loading])
@@ -230,7 +219,7 @@ export const SupercoolAuthContextProvider = (props) => {
     let dataStringify = JSON.stringify(e);
     const ipfsResult = await client.add(dataStringify);
     const contentUri = `https://superfun.infura-ipfs.io/ipfs/${ipfsResult.path}`;
-    console.log('contentUri', contentUri);
+    // console.log('contentUri', contentUri);
     return contentUri;
   }
 
@@ -294,11 +283,13 @@ export const SupercoolAuthContextProvider = (props) => {
         userAdd,
         uploadDatainIpfs,
         getAllNfts,
-        getProfileData,
         generateText,
         storeDataInFirebase,
         FTMToUsdPricee,
-        provider
+        provider,
+        updateForPurchase,
+        UserProfileRef,
+        db
       }}
       {...props}
     >

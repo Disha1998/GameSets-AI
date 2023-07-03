@@ -98,7 +98,6 @@ const RenderDynamicsellNft = ({ StoreDyanamicNftsMetadata, rendersellNFT, render
         },
 
     ];
-    console.log('render sell nft', rendersellNFT, rendersellNFTAgain);
     if (rendersellNFT === true && rendersellNFTAgain === true) {
         return (
             <div className="mx-auto max-w-[48.125rem]">

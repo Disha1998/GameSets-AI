@@ -6,7 +6,7 @@ import { SupercoolAuthContext } from "../../context/supercoolContext";
 const User_items = ({ data }) => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { userAdd, allNfts } = superCoolContext;
-  const [itemActive, setItemActive] = useState(1);
+  const [itemActive, setItemActive] = useState(2);
 
   // console.log('data in items',data);
 

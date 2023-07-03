@@ -18,7 +18,7 @@ const BidsCarousel = () => {
   const superCoolContext = React.useContext(SupercoolAuthContext);
   const { allNfts } = superCoolContext;
   const dispatch = useDispatch();
-  console.log(allNfts);
+  // console.log(allNfts);
 
   const handleclick = () => {
     console.log("clicked on ");

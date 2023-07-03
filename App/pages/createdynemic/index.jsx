@@ -54,9 +54,10 @@ export default function CreateDynemic() {
     apiKey: process.env.apiKey,
   });
   const openai = new OpenAIApi(configuration);
+  const NFT_STORAGE_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNTYwMUJiOWNFOTkyQjZkYjU4OWYzMGY1NDZGMmYxODJhM0RCOTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzM0NzIzNzMwNSwibmFtZSI6InRydXN0aWZpZWQtZnZtIn0.YDlyBmcRUT0lb2HmMzT0tS1AUY8pGNp1NHqN4xr8_fk";
 
-
-  const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
+  // const NFT_STORAGE_TOKEN = process.env.REACT_APP_NFT_STORAGE_TOKEN;
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 
 
@@ -105,7 +106,8 @@ export default function CreateDynemic() {
           description: "data",
           image: imageFile
         });
-        const imUrl = `https://nftstorage.link/ipfs/${metadata.ipnft}/metadata.json`;
+        const imUrl = `https://ipfs.io/ipfs/${metadata.ipnft}/metadata.json`;
+
         // console.log(imUrl, "imUrl");
         const data = (await axios.get(imUrl)).data;
         // console.log(data.image, "data");
