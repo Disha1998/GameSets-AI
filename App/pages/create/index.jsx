@@ -19,7 +19,7 @@ const Create = () => {
   const [category, setCategory] = useState("Profile avatar" || category);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("0.1");
-  const [chain, setChain] = useState("Ethereum" || chain);
+  const [chain, setChain] = useState("Fantom" || chain);
   const [rendersellNFT, setrendersellNFT] = useState(false)
   const [imageUrl, setImageUrl] = useState('');
   const [isMounted, setIsMounted] = useState(false);

@@ -63,7 +63,7 @@ export const SupercoolAuthContextProvider = (props) => {
   }
 
   const updateForPurchase = async (tokenId) => {
-    console.log('tok id',tokenId);
+    console.log('tok id', tokenId);
     const q = query(
       collection(db, "TokenUri"),
       where("tokenId", "==", tokenId)
@@ -176,7 +176,7 @@ export const SupercoolAuthContextProvider = (props) => {
         allnfts.push(item);
         setAllNfts(allnfts);
       }
-      console.log('all nfts--',allnfts);
+      console.log('all nfts--', allnfts);
     } catch (error) {
       console.error("Error fetching data: ", error);
       return [];
@@ -245,25 +245,6 @@ export const SupercoolAuthContextProvider = (props) => {
       console.error('Error:', error);
     }
   };
-
-
-  // covalent
-  const getNftFromCovalent = async () => {
-    let headers = new Headers();
-    headers.set('Authorization', 'Bearer cqt_rQhQcY3rDFmM7pwgwmXRmcWRXM67');
-
-    fetch('https://api.covalenthq.com/v1/4002/tokens/0x8aB17E12A2284882e05a48D39CD101663289C6Db/nft_metadata/', { method: 'GET', headers: headers })
-
-      // fetch('https://api.covalenthq.com/v1/fantom-testnet/address/0x3efCb574c30f02aDC54E035c04bF35FC731a9899/balances_v2/', {
-      //   method: 'GET',
-      //   headers: headers
-      // })
-      .then((resp) => resp.json())
-      .then((data) => console.log('covalent=>', data));
-  };
-
-  getNftFromCovalent();
-
 
   return (
     <SupercoolAuthContext.Provider
