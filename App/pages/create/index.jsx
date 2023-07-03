@@ -63,8 +63,8 @@ const Create = () => {
     try {
       const res = await openai.createImage({
         prompt: prompt,
-        n: 1,
-        size: "256x256",
+        n: 3,
+        size: "512x512",
       });
       console.log(res);
       setLoading(false);
