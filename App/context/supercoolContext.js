@@ -157,13 +157,13 @@ export const SupercoolAuthContextProvider = (props) => {
       signer
     );
 
-    setGenRanImgLoding(true);
-    const tx = await contract.getRandomNumber();
-    await tx.wait();
-    const num = await contract.ranNum();
-    setPrompt(RandomPrompts[num]);
-    setGenRanImgLoding(false);
-  }
+  //   setGenRanImgLoding(true);
+  //   const tx = await contract.getRandomNumber();
+  //   await tx.wait();
+  //   const num = await contract.ranNum();
+  //   setPrompt(RandomPrompts[num]);
+  //   setGenRanImgLoding(false);
+  // }
 
   async function getAllNfts() {
     try {
