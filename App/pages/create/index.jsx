@@ -57,53 +57,64 @@ const Create = () => {
 
   const generateImage = async () => {
     setGenerateLoading(true);
-    setPlaceholder(`Search ${prompt}..`);
     setLoading(true);
 
+    setPlaceholder(`Search ${prompt}...`);
     try {
       const res = await openai.createImage({
         prompt: prompt,
-        n: 1,
-        size: "512X512",
+        n: 3,
+        size: "256x256",
       });
-      console.log(res);
       setLoading(false);
+
       let arry = [];
       for (let i = 0; i < res.data.data.length; i++) {
         const img_url = res.data.data[i].url;
+        console.log('img_url', img_url);
         const api = await axios.create({
-          baseURL: "https://open-ai-enwn.onrender.com",
+          baseURL:
+            "https://open-ai-enwn.onrender.com",
         });
         const obj = {
-          url: img_url,
-        };
+          url: img_url
+        }
         let response = await api
           .post("/image", obj)
           .then((res) => {
             return res;
           })
           .catch((error) => {
-            console.log(error, '----<>');
+            console.log(error);
           });
         const arr = new Uint8Array(response.data.data);
-        const blob = new Blob([arr], { type: "image/jpeg" });
-        const imageFile = new File([blob], `data.png`, {
-          type: "image/jpeg",
-        });
+        const blob = new Blob([arr], { type: 'image/jpeg' });
+        const imageFile = new File(
+          [blob],
+          `data.png`,
+          {
+            type: "image/jpeg",
+          }
+        );
         const metadata = await client.store({
           name: "data",
           description: "data",
-          image: imageFile,
+          image: imageFile
         });
         const imUrl = `https://ipfs.io/ipfs/${metadata.ipnft}/metadata.json`;
 
+        // console.log(imUrl, "imUrl");
         const data = (await axios.get(imUrl)).data;
+        // console.log(data.image, "data");
         const rep = data.image.replace(
           "ipfs://",
-          "https://ipfs.io/ipfs/"
+          "https://nftstorage.link/ipfs/"
         );
+        // console.log(rep, '==rep');
+
         arry.push(rep);
       }
+      // console.log(arry, '----arry');
       setImages(arry);
       setGenerateLoading(false);
 
@@ -112,9 +123,6 @@ const Create = () => {
       setGenerateLoading(false);
     }
   };
-  // JD CORS Solution END ------------------- 
-
-
 
   const mintNft = async (_price, _metadataurl,_metaData) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -173,8 +181,7 @@ totalNfts()
       description: description,
       price: price,
       chain: chain,
-      // image: selectedImage,
-      image: "https://bafkreidbp4p6afkcwwakctdael2itdtufeewuyq5idzkqf3quczt4dkhyu.ipfs.nftstorage.link/",
+      image: selectedImage,
       category: category,
       owner: localStorage.getItem('address'),
       tokenId: tokenid,

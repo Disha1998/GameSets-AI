@@ -26,7 +26,7 @@ const hero = () => {
               {/* Super cool */}
             </h1>
             <p className="dark:text-jacarta-200 mb-8 text-center text-lg md:text-left">
-            The world largest digital marketplace for generative AI based dynamic profile avatars, gaming characters etc.
+            The world largest digital marketplace for generative AI based gaming assets, avatars, costumes etc.
             </p>
             <div className="flex space-x-4">
               <Link href="/create">
