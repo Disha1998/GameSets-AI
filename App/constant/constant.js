@@ -1,5 +1,5 @@
-const WEATHER_API_CONTRACT = "0xf173160A746942E690813d01C8D3Ac04a69e0dA8"
-export const SUPER_COOL_NFT_CONTRACT = "0xfC6126A750f0957012FD69f44300dD08E9871e98"
+const WEATHER_API_CONTRACT = "0x78Aac2b67FC10BB7c805011D9E04c9D802C0621b"
+export const SUPER_COOL_NFT_CONTRACT = "0x4fE1f5a94dc3F7dA94A4EE4AcEAaB0ee4FC17834"
 
 export const abi = [
   {
@@ -355,25 +355,6 @@ export const abi = [
         "type": "address"
       }
     ],
-    "name": "getUserProfile",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
-    ],
     "name": "getUserTokens",
     "outputs": [
       {
@@ -596,19 +577,6 @@ export const abi = [
       }
     ],
     "name": "setApprovalForAll",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "metadata",
-        "type": "string"
-      }
-    ],
-    "name": "storeProfileData",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
