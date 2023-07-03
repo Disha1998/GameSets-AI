@@ -37,7 +37,7 @@ export const SupercoolAuthContextProvider = (props) => {
     messagingSenderId: "82497989740",
     appId: "1:82497989740:web:cf30a3f6580b0f834a3c49"
   };
-
+  
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
@@ -63,7 +63,7 @@ export const SupercoolAuthContextProvider = (props) => {
   }
 
   const updateForPurchase = async (tokenId) => {
-    console.log('tok id', tokenId);
+    console.log('tok id',tokenId);
     const q = query(
       collection(db, "TokenUri"),
       where("tokenId", "==", tokenId)
@@ -157,13 +157,13 @@ export const SupercoolAuthContextProvider = (props) => {
       signer
     );
 
-  //   setGenRanImgLoding(true);
-  //   const tx = await contract.getRandomNumber();
-  //   await tx.wait();
-  //   const num = await contract.ranNum();
-  //   setPrompt(RandomPrompts[num]);
-  //   setGenRanImgLoding(false);
-  // }
+    setGenRanImgLoding(true);
+    const tx = await contract.getRandomNumber();
+    await tx.wait();
+    const num = await contract.ranNum();
+    setPrompt(RandomPrompts[num]);
+    setGenRanImgLoding(false);
+  }
 
   async function getAllNfts() {
     try {
@@ -176,7 +176,7 @@ export const SupercoolAuthContextProvider = (props) => {
         allnfts.push(item);
         setAllNfts(allnfts);
       }
-      console.log('all nfts--', allnfts);
+      console.log('all nfts--',allnfts);
     } catch (error) {
       console.error("Error fetching data: ", error);
       return [];
