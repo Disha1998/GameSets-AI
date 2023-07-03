@@ -1,23 +1,28 @@
+
 # GameSets-AI
 
-cover.....
+
 
 ### At GameSets-AI The magic of AI and the power of blockchain converge. SuperCool is the Ai generative NFT marketplace for metaverse avatars, game assets, and costumes. 
 
-### Contract 
 
-https://github.com/Disha1998/GameSets-AI/tree/master/hardhat/contracts
 
 
 ## It includes
 
-![Screenshot 2023-07-03 at 9 44 29 PM](https://github.com/Disha1998/GameSets-AI/assets/69969675/5a98e597-0c4d-4159-9503-ed4bd4414ca1)
-![Screenshot 2023-07-03 at 9 45 20 PM](https://github.com/Disha1998/GameSets-AI/assets/69969675/66e9be15-67ba-402e-a3b8-c8dd0efd7cce)
 
-![Screenshot 2023-07-03 at 9 46 07 PM](https://github.com/Disha1998/GameSets-AI/assets/69969675/751781d8-3377-4628-a466-808eabee90a4)
-![Screenshot 2023-07-03 at 11 04 41 AM](https://github.com/Disha1998/GameSets-AI/assets/69969675/fc727f16-4b9a-4551-b7d4-d4f1d219d7c2)
+![1](https://github.com/Disha1998/GameSets-readme/assets/69969675/14988422-1cdb-4e06-8db8-f92c963e01bd)
+![2](https://github.com/Disha1998/GameSets-readme/assets/69969675/ad255b6e-46b1-4402-af67-f40aa05c0afc)
+![3](https://github.com/Disha1998/GameSets-readme/assets/69969675/42077761-7a91-4889-a008-9f2aaf9f4220)
 
+![4](https://github.com/Disha1998/GameSets-readme/assets/69969675/7882ef45-3ad5-4846-b92b-cccf08f5e43b)
+![5](https://github.com/Disha1998/GameSets-readme/assets/69969675/5fa29086-8172-477f-bc8a-480d48037798)
 
+![6](https://github.com/Disha1998/GameSets-readme/assets/69969675/8b49d178-ae70-46d1-b0ec-9b9cc5a95d1b)
+![7](https://github.com/Disha1998/GameSets-readme/assets/69969675/1b79ccab-15e2-4498-9e0a-4eea92589fff)
+![8](https://github.com/Disha1998/GameSets-readme/assets/69969675/351d9de5-8015-4369-bf34-a7a48a52ef50)
+
+![9](https://github.com/Disha1998/GameSets-readme/assets/69969675/d183285c-72f6-46df-ba3b-c5bf1c952465)
 
 
 ## Chainlink Keeper
@@ -52,4 +57,13 @@ https://github.com/Disha1998/GameSets-AI/tree/master/hardhat/contracts
 
 ```
 
+### Contract 
 
+https://github.com/DhruvSathavara/SuperCool/tree/master/hardhat/contracts
+
+## Fantom explorer urls
+
+
+https://testnet.ftmscan.com/address/0x4fE1f5a94dc3F7dA94A4EE4AcEAaB0ee4FC17834
+
+https://testnet.ftmscan.com/address/0x78Aac2b67FC10BB7c805011D9E04c9D802C0621b
