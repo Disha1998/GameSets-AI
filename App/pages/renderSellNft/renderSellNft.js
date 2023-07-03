@@ -6,7 +6,7 @@ const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, crea
     const blockChainOptionsText = [
         {
             id: 1,
-            text: 'Ethereum',
+            text: 'Fantom',
         },
         {
             id: 2,

@@ -11,7 +11,7 @@ const BidsModal = () => {
   const { bidsModal } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { allNfts,updateForPurchase,getAllNfts } = superCoolContext;
+  const { allNfts, updateForPurchase, getAllNfts } = superCoolContext;
   const [buyLoading, setBuyLoading] = useState(false);
 
   const purchaseNft = async (_tokenId, _price) => {
@@ -88,12 +88,16 @@ const BidsModal = () => {
                       <div className="dark:border-jacarta-600 border-jacarta-100 relative mb-2 flex items-center overflow-hidden rounded-lg border">
                         <div className="border-jacarta-100 bg-jacarta-50 flex flex-1 items-center self-stretch border-r px-2">
                           <span>
-                            <svg className="icon icon-ETH mr-1 h-5 w-5">
-                              <use xlinkHref="/icons.svg#icon-ETH"></use>
-                            </svg>
+
+
+                            <img
+                              className="mr-1 h-5 w-5 icon"
+                              src="/images/fantom.png"
+                            />
+
                           </span>
                           <span className="font-display text-jacarta-700 text-sm">
-                            MATIC
+                            FTM
                           </span>
                         </div>
 
@@ -105,9 +109,6 @@ const BidsModal = () => {
                           readOnly
                         />
 
-                        <div className="bg-jacarta-50 border-jacarta-100 flex flex-1 justify-end self-stretch border-l dark:text-jacarta-700">
-                          <span className="self-center px-2 text-sm">${item.maticToUSD}</span>
-                        </div>
                       </div>
 
                     </div>
