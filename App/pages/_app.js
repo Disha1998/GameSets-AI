@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import "../styles/globals.css";
 import '../pages/index.css'
 import { ThemeProvider } from "next-themes";
