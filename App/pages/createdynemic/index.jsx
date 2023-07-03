@@ -20,7 +20,7 @@ export default function CreateDynemic() {
   const [category, setCategory] = useState("Profile avatar" || category);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
-  const [chain, setChain] = useState("Ethereum" || chain);
+  const [chain, setChain] = useState("Fantom" || chain);
   const [rendersellNFT, setrendersellNFT] = useState(false)
   const [rendersellNFTAgain, setrendersellNFTAgain] = useState(true)
   const [modalOpen, setModalOpen] = useState(false);
