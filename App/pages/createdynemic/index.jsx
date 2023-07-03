@@ -52,7 +52,7 @@ export default function CreateDynemic() {
       const res = await openai.createImage({
         prompt: prompt,
         n: 3,
-        size: "256x256",
+        size: "512x512",
       });
       // console.log(res);
 

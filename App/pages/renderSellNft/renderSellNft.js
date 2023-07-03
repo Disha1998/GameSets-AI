@@ -6,7 +6,7 @@ const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, crea
     const blockChainOptionsText = [
         {
             id: 1,
-            text: 'Ethereum',
+            text: 'Fantom',
         },
         {
             id: 2,
@@ -29,7 +29,7 @@ const RendersellNft = ({ rendersellNFT, setTitle, setDescription, setPrice, crea
         },
 
     ];
-    if (rendersellNFT === true) {
+    if (rendersellNFT === false) {
         return (
             <div className="mx-auto max-w-[48.125rem]">
                 <div className="mb-6">

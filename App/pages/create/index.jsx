@@ -64,7 +64,7 @@ const Create = () => {
       const res = await openai.createImage({
         prompt: prompt,
         n: 1,
-        size: "256x256",
+        size: "512X512",
       });
       console.log(res);
       setLoading(false);
@@ -173,7 +173,8 @@ totalNfts()
       description: description,
       price: price,
       chain: chain,
-      image: selectedImage,
+      // image: selectedImage,
+      image: "https://bafkreidbp4p6afkcwwakctdael2itdtufeewuyq5idzkqf3quczt4dkhyu.ipfs.nftstorage.link/",
       category: category,
       owner: localStorage.getItem('address'),
       tokenId: tokenid,
