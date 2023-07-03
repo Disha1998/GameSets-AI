@@ -2,7 +2,6 @@ import { useState } from "react"
 import RendersellNft from "../renderSellNft/renderDynamicSellNft";
 
 const DynamicImageModal = ({ StoreDyanamicNftsMetadata,rendersellNFTAgain,setrendersellNFTAgain,setModalOpen, selectedImage, setSelectedImage, setrendersellNFT }) => {
-    const [error, setError] = useState(null);
     console.log(rendersellNFTAgain);
     const closeModal = () => {
         setModalOpen(false);

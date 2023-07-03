@@ -158,9 +158,10 @@ const Create = () => {
       provider
     );
     const numOfNfts = await contractPro.getTotalSupply();
+    console.log(Number(numOfNfts));
     return Number(numOfNfts) + 1;
   }
-
+totalNfts()
 
   const createNft = async () => {
 

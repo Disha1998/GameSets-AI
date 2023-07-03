@@ -146,25 +146,12 @@ export const SupercoolAuthContextProvider = (props) => {
   });
 
 
+  const GenerateNum = () => {
+    const index = Math.floor(Math.random() * RandomPrompts.length);
+    setPrompt(RandomPrompts[index])
+  };
 
-  const GenerateNum = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-
-    const contract = new ethers.Contract(
-      SUPER_COOL_NFT_CONTRACT,
-      abi,
-      signer
-    );
-
-    setGenRanImgLoding(true);
-    const tx = await contract.getRandomNumber();
-    await tx.wait();
-    const num = await contract.ranNum();
-    setPrompt(RandomPrompts[num]);
-    setGenRanImgLoding(false);
-  }
-
+  
   async function getAllNfts() {
     try {
       const querySnapshot = await getDocs(collectionRef);

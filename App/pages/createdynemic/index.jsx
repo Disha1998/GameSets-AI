@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Meta from "../../components/Meta";
 import { Configuration, OpenAIApi } from "openai";
 import { SUPER_COOL_NFT_CONTRACT, abi } from "../../constant/constant";
@@ -7,16 +7,13 @@ import { SupercoolAuthContext } from "../../context/supercoolContext";
 import { NFTStorage, File } from 'nft.storage'
 import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
-import ImageModal from "../modal/dynamicmodal";
-import RendersellNft from "../renderSellNft/renderDynamicSellNft";
 import DynamicImageModal from "../modal/dynamicmodal";
 import RenderDynamicsellNft from "../renderSellNft/renderDynamicSellNft";
 
 
-
 export default function CreateDynemic() {
   const superCoolContext = React.useContext(SupercoolAuthContext);
-  const { uploadOnIpfs, handleImgUpload, loading, setLoading, GenerateNum, prompt, setPrompt, genRanImgLoding, getAllNfts } = superCoolContext;
+  const { uploadOnIpfs, loading, setLoading, prompt, setPrompt, getAllNfts } = superCoolContext;
 
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
@@ -26,8 +23,6 @@ export default function CreateDynemic() {
   const [chain, setChain] = useState("Ethereum" || chain);
   const [rendersellNFT, setrendersellNFT] = useState(false)
   const [rendersellNFTAgain, setrendersellNFTAgain] = useState(true)
-  const [imageUrl, setImageUrl] = useState('');
-  const [isMounted, setIsMounted] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [generateLoading, setGenerateLoading] = useState(false);
   const [mintLoading, setMintLoading] = useState(false);
@@ -38,17 +33,6 @@ export default function CreateDynemic() {
   const [dynamicMetadataArr, setDynemicMetadataArr] = React.useState([]);
   const [selectedImage, setSelectedImage] = React.useState(null);
 
-
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  useEffect(() => {
-    if (isMounted && imageUrl) {
-      imgRef.current = imageUrl;
-      console.log('imgRef==', imgRef);
-    }
-  }, [imageUrl, isMounted]);
 
   const configuration = new Configuration({
     apiKey: process.env.apiKey,
@@ -61,7 +45,6 @@ export default function CreateDynemic() {
   const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
 
 
-
   const generateImage = async () => {
     setGenerateLoading(true);
     setPlaceholder(`Search ${prompt}...`);
@@ -71,7 +54,7 @@ export default function CreateDynemic() {
         n: 3,
         size: "256x256",
       });
-      console.log(res);
+      // console.log(res);
 
       let arry = [];
       for (let i = 0; i < res.data.data.length; i++) {
@@ -129,49 +112,6 @@ export default function CreateDynemic() {
     }
   };
 
-  const changeDynamicMetadata = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-   const signer = provider.getSigner();
-
-  const contract = new ethers.Contract(
-    SUPER_COOL_NFT_CONTRACT,
-    abi,
-    signer
-  );
-    const tx = await contract.changeDynamicNFTMetadata("1");
-    await tx.wait();
-
-  }
-
-  const mintNft = async (_price, _metadataurl) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-
-  const contract = new ethers.Contract(
-    SUPER_COOL_NFT_CONTRACT,
-    abi,
-    signer
-  );
-
-    try {
-      const tx = await contract.mintNFT(_price, _metadataurl);
-      await tx.wait();
-    } catch (e) {
-      console.error("Failed to mint NFT: " + e.message);
-    }
-    await getAllNfts()
-    setLoading(!loading);
-    setMintLoading(false);
-    setImages([]);
-    setTitle('');
-    setDescription('');
-    setPrice('');
-    setrendersellNFT(false);
-  };
-
-  
-
-
   const StoreDyanamicNftsMetadata = async () => {
     const nftData = {
       title: title,
@@ -182,26 +122,25 @@ export default function CreateDynemic() {
       image: selectedImage,
       category: category
     }
-    
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-  
-    const contract = new ethers.Contract(
-      SUPER_COOL_NFT_CONTRACT,
-      abi,
-      signer
-    );
-  
     console.log(nftData);
     let metadataurl = await uploadOnIpfs(nftData);
     dynamicMetadataArr.push(metadataurl);
     setrendersellNFTAgain(false);
   }
   console.log('dynamic meta data urls--', dynamicMetadataArr);
+
   const createDynamicNft = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      SUPER_COOL_NFT_CONTRACT,
+      abi,
+      signer
+    );
     try {
       const tx = await contract.mintDynamicNFT(city, dynamicMetadataArr ,ethers.utils.parseUnits(price?.toString(), "ether"));
-      await tx.wait();
+     const receipt = await tx.wait();
+     console.log('receipt of dynamic mint',receipt);
     } catch (e) {
       console.error("Failed to mint NFT: " + e.message);
     }
@@ -262,14 +201,6 @@ export default function CreateDynemic() {
                       Generate
                     </button>
                   }
-                                      {/* <button
-                      className="bg-accent-lighter rounded-full py-3 px-8 text-center font-semibold text-white transition-all  "
-                      style={{ marginBottom: "15px" }}
-                      onClick={changeDynamicMetadata}
-                    >
-                      change meta data
-                    </button>
-                   */}
                 </div>
                 <br />
 
@@ -356,7 +287,6 @@ export default function CreateDynemic() {
               city={city}
               setCity={setCity}
               setPrice={setPrice}
-              createNft={StoreDyanamicNftsMetadata}
               mintLoading={mintLoading}
               category={category}
               setCategory={setCategory}
