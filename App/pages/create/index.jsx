@@ -207,7 +207,7 @@ const Create = () => {
             </div>
           </div>
           <div className="col-span-9">
-            <Meta title="SuperCool" />
+            <Meta title="GameSets-AI" />
 
             <section className="relative py-24 nft-sections fixed">
               <picture className="pointer-events-none absolute inset-0 -z-10 dark:hidden">
