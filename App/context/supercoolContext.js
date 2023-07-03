@@ -36,7 +36,7 @@ export const SupercoolAuthContextProvider = (props) => {
     messagingSenderId: "82497989740",
     appId: "1:82497989740:web:cf30a3f6580b0f834a3c49"
   };
-  
+
 
   const app = initializeApp(firebaseConfig);
   // const analytics = getAnalytics(app);
@@ -256,6 +256,25 @@ export const SupercoolAuthContextProvider = (props) => {
       console.error('Error:', error);
     }
   };
+
+
+  // covalent
+  const getNftFromCovalent = async () => {
+    let headers = new Headers();
+    headers.set('Authorization', 'Bearer cqt_rQhQcY3rDFmM7pwgwmXRmcWRXM67');
+
+    fetch('https://api.covalenthq.com/v1/4002/tokens/0x8aB17E12A2284882e05a48D39CD101663289C6Db/nft_metadata/', { method: 'GET', headers: headers })
+
+      // fetch('https://api.covalenthq.com/v1/fantom-testnet/address/0x3efCb574c30f02aDC54E035c04bF35FC731a9899/balances_v2/', {
+      //   method: 'GET',
+      //   headers: headers
+      // })
+      .then((resp) => resp.json())
+      .then((data) => console.log('covalent=>', data));
+  };
+
+  getNftFromCovalent();
+
 
   return (
     <SupercoolAuthContext.Provider
