@@ -62,7 +62,7 @@ const BidsCarousel = () => {
                     <a>
                       <div className="w-full">
                         <Link href={`/item/${item.tokenId}`}>
-                          <img
+                          <Image
                             src={item.image}
                             alt={item.title}
                             // height={250}
@@ -72,7 +72,7 @@ const BidsCarousel = () => {
                             className="rounded-[0.625rem] w-full"
                             loading="lazy"
                             style={{height:"250px"}}
-                          />
+                          ></Image>
                         </Link>
                       </div>
                     </a>

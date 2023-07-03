@@ -7,6 +7,7 @@ import "tippy.js/dist/tippy.css"; // optional
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { SupercoolAuthContext } from "../../context/supercoolContext";
 import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import Image from "next/image";
 
 
 const User = () => {
@@ -79,27 +80,27 @@ const User = () => {
       <div className="pt-[5.5rem] lg:pt-24" >
         {/* <!-- Banner --> */}
         <div className="relative h-[18.75rem]">
-          <img
+          <Image
             src={coverePhoto}
             alt="banner"
             layout="fill"
             className="h-[18.75rem] w-full object-cover"
 
-          />
+          ></Image>
         </div>
         {/* <!-- end banner --> */}
         <section className="dark:bg-jacarta-800 bg-light-base relative pb-12 pt-28">
           {/* <!-- Avatar --> */}
           <div className="absolute left-1/2 top-0 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
             <figure className="relative h-40 w-40 dark:border-jacarta-600 rounded-xl border-[5px] border-white">
-              <img
+              <Image
                 src={profilePhoto}
                 alt={username}
                 layout="fill"
                 objectFit="contain"
                 className="dark:border-jacarta-600 rounded-xl border-[5px] border-white"
-              />
-
+              >
+</Image>
             </figure>
           </div>
 
