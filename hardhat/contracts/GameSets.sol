@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
 import "./WeatherAPI.sol";
 
-contract SUPCool is ERC721URIStorage {
+contract GameSets is ERC721URIStorage {
     using SafeCast for int256;
     using SafeMath for uint256;
     using Counters for Counters.Counter;
