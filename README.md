@@ -59,7 +59,7 @@
 
 ### Contract 
 
-https://github.com/DhruvSathavara/SuperCool/tree/master/hardhat/contracts
+https://github.com/Disha1998/GameSets-AI/tree/master/hardhat/contracts
 
 ## Fantom explorer urls
 
